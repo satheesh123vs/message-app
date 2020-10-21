@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color:grey;"
+ }
+th, td {
+  padding: 15px;
+}
+</style>
+</head>
+<body onload="GenerateCaptcha();" >
+	<form id="msgform" action="/" method="GET" >
+	  	<table style="width:60%" >
+	  	    <tr><td colspan="2" align="center"><B>Message Application</B></td></tr> 
+	  		<tr><td></td><td><input id="msg" type="hidden" name="msg" size="150" value=""/><br/></td></tr>
+			<tr><td>Question</td><td><input id="question" type="text" name="question" size="30" value=""/><br/></td></tr>
+			<tr><td>Sum</td><td><input type="text" name="answer" value=""/><br/></td></tr>
+			<tr><td>
+			<input type="text" id="txtCaptcha" style="text-align: center; border: none; font-weight: bold; font-family: Modern" />
+			<input type="button" id="btnrefresh" value="Refresh" onclick="GenerateCaptcha();" />
+			<input type="text" id="txtCompare" />
+			<br/></td></tr>
+			<tr><td><input type="button" id="Submit" value="Submit" onclick="submitform();" /></td></tr>
+		</table>
+	</form>
+	
+	
+<script type="text/javascript">
+function GenerateCaptcha() {
+	var chr1 = Math.ceil(Math.random() * 10)+ '';
+	var chr2 = Math.ceil(Math.random() * 10)+ '';
+	var chr3 = Math.ceil(Math.random() * 10)+ '';
+	var chr4 = Math.ceil(Math.random() * 10)+ '';
+	var chr5 = Math.ceil(Math.random() * 10)+ '';
+	var chr6 = Math.ceil(Math.random() * 10)+ '';
+	var chr7 = Math.ceil(Math.random() * 10)+ '';
+	 
+	var captchaCode = chr1 + ' ' + chr2 + ' ' + chr3 + ' ' + chr4 + ' ' + chr5 + ' '+ chr6 + ' ' + chr7;
+	document.getElementById("txtCaptcha").value = captchaCode
+	}
+	 
+	/* Validating Captcha Function */
+	function ValidCaptcha() {
+	var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+	var str2 = removeSpaces(document.getElementById('txtCompare').value);
+	 
+	if ((str1 != null && str1 != '') && (str1 == str2)) return true;
+	return false;
+	}
+	 
+	/* Remove spaces from Captcha Code */
+	function removeSpaces(string) {
+	return string.split(' ').join('');
+	}
+	function submitform()
+	{   if(ValidCaptcha()){
+			document.getElementById("msgform").submit();
+		}
+		else{alert("Enter valid Captcha");}
+	}
+var xmlReq = new XMLHttpRequest();
+xmlReq.onload = function(e) {
+	var json = JSON.parse(xmlReq.responseText);
+	var f = document.getElementById("msgform").elements;
+	f.namedItem("msg").value = json.msg;
+	f.namedItem("question").value = json.question;
+}
+xmlReq.open('POST', '/', true);
+xmlReq.send(null);
+</script>
+</body>
+</html>
+

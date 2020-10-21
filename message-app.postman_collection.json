@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "a8e58fea-ec5e-47c8-94be-657893ff145d",
+		"name": "message-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getQuestion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validateAnswer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/?msg=UGxlYXNlIHN1bSB0aGUgbnVtYmVycyAwLCAyLCA4&question=Please sum the numbers 0, 2, 8&answer=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "msg",
+							"value": "UGxlYXNlIHN1bSB0aGUgbnVtYmVycyAwLCAyLCA4"
+						},
+						{
+							"key": "question",
+							"value": "Please sum the numbers 0, 2, 8"
+						},
+						{
+							"key": "answer",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
